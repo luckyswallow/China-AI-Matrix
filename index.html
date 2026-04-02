@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China AI Regulatory Matrix v8</title>
+<style>
+:root{--bg:#fff;--txt:#1a1a18;--txt2:#5f5e5a;--txt3:#888780;--bdr:rgba(0,0,0,0.25);--bdr2:rgba(0,0,0,0.11)}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1a18;--txt:#e8e6de;--txt2:#9c9a92;--txt3:#6b6a64;--bdr:rgba(255,255,255,0.25);--bdr2:rgba(255,255,255,0.11)}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);padding:18px 18px 40px;line-height:1.5;max-width:1840px}
+h1{font-size:15px;font-weight:500;margin-bottom:3px}
+.sub{font-size:9.5px;color:var(--txt3);margin-bottom:12px;line-height:1.9}
+.sh{font-size:8px;color:var(--txt3);margin-bottom:5px}
+.rw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:separate;border-spacing:3px;table-layout:auto;min-width:1600px}
+th.corner{border-bottom:1.5px solid var(--bdr);width:96px;min-width:96px}
+th.yr{font-size:11px;font-weight:700;color:var(--txt);text-align:center;padding:6px 4px 5px;border-bottom:1.5px solid var(--bdr);white-space:nowrap;min-width:142px}
+
+
+td.rl{width:96px;min-width:96px;vertical-align:top;padding:5px 5px 5px 0;border-right:3px solid transparent;position:sticky;left:0;z-index:2;background:var(--bg)}
+td.rl .zh{font-size:12px;font-weight:600;display:block}
+td.rl .en{font-size:7.5px;display:block;line-height:1.35;margin-top:1px;opacity:0.7}
+td.rl .note{font-size:6px;display:block;margin-top:2px;font-style:italic;opacity:0.6}
+td.rc{vertical-align:top;min-width:142px;padding:2px 0 0 0}
+.re{border:0.5px dashed var(--bdr2);border-radius:4px;min-height:18px}
+.ri{border-radius:4px;padding:4px 6px;margin-bottom:2px;border-width:0.5px;border-style:solid}
+.ri .en2{font-size:7px;font-style:italic;opacity:0.8}
+.ri:last-child{margin-bottom:0}
+.ri a{color:inherit;text-decoration:none;border-bottom:0.5px dotted currentColor}
+.ri a:hover{border-bottom-style:solid}
+.tg{display:inline-block;font-size:5.5px;font-weight:700;padding:1px 3px;border-radius:2px;margin-bottom:1px;letter-spacing:0.04em;line-height:1.5;white-space:nowrap}
+.dno{display:block;font-size:6px;font-style:italic;opacity:0.62;margin-bottom:1px}
+.cn{font-size:8.5px;font-weight:500;display:block;line-height:1.35;margin-bottom:1px}
+.en2{font-size:7px;display:block;line-height:1.25;opacity:0.76}
+.dt{font-size:6.5px;display:block;margin-top:2px;opacity:0.52;font-style:italic}
+.am{font-size:9px;font-weight:700;padding:0 3px;border-radius:2px;vertical-align:middle;margin-left:3px;display:inline-block;line-height:1.5}
+.dr{font-size:6px;padding:0 3px;border-radius:2px;margin-left:2px;vertical-align:middle;display:inline-block;font-style:italic;font-weight:600}
+.disc{font-size:6px;padding:0 3px;border-radius:2px;margin-left:2px;display:inline-block;font-style:italic;font-weight:600}
+.pl{font-size:6px;padding:0 3px;border-radius:2px;margin-left:2px;display:inline-block;font-style:italic;font-weight:600}
+.sb{display:inline-block;font-size:5.5px;padding:1px 4px;border-radius:2px;margin-bottom:2px;font-weight:700;line-height:1.6}
+
+/* ══ TIER COLORS 赤橙黄绿青蓝紫灰 ══ */
+.rl0{background:#FCEBEB;border-right-color:#E24B4A}.rl0 .zh{color:#791F1F}.rl0 .en{color:#A32D2D}
+.t0{background:#FCEBEB;border-color:#F09595}.t0 .tg{background:#F7C1C1;color:#501313}.t0 .cn{color:#791F1F}.t0 .en2,.t0 .dt,.t0 .dno{color:#A32D2D}
+
+.rl1{background:#FAECE7;border-right-color:#D85A30}.rl1 .zh{color:#712B13}.rl1 .en{color:#993C1D}
+.t1{background:#FAECE7;border-color:#F0997B}.t1 .tg{background:#F5C4B3;color:#4A1B0C}.t1 .cn{color:#712B13}.t1 .en2,.t1 .dt,.t1 .dno{color:#993C1D}
+.t1 .am{background:#712B13;color:#FAECE7}
+
+.rl2{background:#FAEEDA;border-right-color:#BA7517}.rl2 .zh{color:#633806}.rl2 .en{color:#854F0B}
+.t2{background:#FAEEDA;border-color:#FAC775}.t2 .tg{background:#FAC775;color:#412402}.t2 .cn{color:#633806}.t2 .en2,.t2 .dt,.t2 .dno{color:#854F0B}
+
+.rl3{background:#EAF3DE;border-right-color:#639922}.rl3 .zh{color:#3B6D11}.rl3 .en{color:#27500A}
+.t3{background:#EAF3DE;border-color:#97C459}.t3 .tg{background:#C0DD97;color:#173404}.t3 .cn{color:#3B6D11}.t3 .en2,.t3 .dt,.t3 .dno{color:#27500A}
+
+.rl4{background:#E1F5EE;border-right-color:#1D9E75}.rl4 .zh{color:#085041}.rl4 .en{color:#0F6E56}
+.t4{background:#E1F5EE;border-color:#5DCAA5}.t4 .tg{background:#9FE1CB;color:#04342C}.t4 .cn{color:#085041}.t4 .en2,.t4 .dt,.t4 .dno{color:#0F6E56}
+.t4 .dr{background:#9FE1CB;color:#085041}.t4 .disc{background:#9FE1CB;color:#085041}
+
+.rl5{background:#E6F1FB;border-right-color:#185FA5}.rl5 .zh{color:#0C447C}.rl5 .en{color:#185FA5}
+.t5{background:#E6F1FB;border-color:#85B7EB}.t5 .tg{background:#B5D4F4;color:#042C53}.t5 .cn{color:#0C447C}.t5 .en2,.t5 .dt,.t5 .dno{color:#185FA5}
+.t5 .disc{background:#B5D4F4;color:#042C53}.t5 .pl{background:#B5D4F4;color:#042C53}.t5 .sb{background:#B5D4F4;color:#042C53}
+
+.rl6{background:#EEEDFE;border-right-color:#7F77DD}.rl6 .zh{color:#3C3489}.rl6 .en{color:#534AB7}
+.t6{background:#EEEDFE;border-color:#AFA9EC}.t6 .tg{background:#CECBF6;color:#26215C}.t6 .cn{color:#3C3489}.t6 .en2,.t6 .dt,.t6 .dno{color:#534AB7}
+
+.rl7{background:#F1EFE8;border-right-color:#888780}.rl7 .zh{color:#444441}.rl7 .en{color:#5F5E5A}
+.ri.t2,.ri.t6{opacity:0.9}
+.t7s{background:#E8E6DF;border-color:#B4B2A9}.t7s .tg{background:#C8C6BE;color:#2C2C2A}.t7s .cn{color:#2C2C2A}.t7s .en2,.t7s .dt,.t7s .dno{color:#5F5E5A}
+.t7r{background:#F5F4EE;border-color:#C8C6BE;border-style:dashed}.t7r .tg{background:#DEDAD2;color:#444441}.t7r .cn{color:#5F5E5A;font-style:italic}.t7r .en2,.t7r .dt,.t7r .dno{color:#888780}
+.t7r .dr{background:#DEDAD2;color:#444441}
+
+@media(prefers-color-scheme:dark){
+.rl0{background:#501313;border-right-color:#E24B4A}.rl0 .zh{color:#F7C1C1}.rl0 .en{color:#F09595}
+.t0{background:#501313;border-color:#A32D2D}.t0 .tg{background:#791F1F;color:#F7C1C1}.t0 .cn{color:#F7C1C1}.t0 .en2,.t0 .dt,.t0 .dno{color:#F09595}
+.rl1{background:#4A1B0C;border-right-color:#D85A30}.rl1 .zh{color:#F5C4B3}.rl1 .en{color:#F0997B}
+.t1{background:#4A1B0C;border-color:#993C1D}.t1 .tg{background:#712B13;color:#F5C4B3}.t1 .cn{color:#F5C4B3}.t1 .en2,.t1 .dt,.t1 .dno{color:#F0997B}.t1 .am{background:#F5C4B3;color:#4A1B0C}
+.rl2{background:#412402;border-right-color:#BA7517}.rl2 .zh{color:#FAC775}.rl2 .en{color:#EF9F27}
+.t2{background:#412402;border-color:#BA7517}.t2 .tg{background:#633806;color:#FAC775}.t2 .cn{color:#FAC775}.t2 .en2,.t2 .dt,.t2 .dno{color:#EF9F27}
+.rl3{background:#173404;border-right-color:#639922}.rl3 .zh{color:#C0DD97}.rl3 .en{color:#97C459}
+.t3{background:#173404;border-color:#3B6D11}.t3 .tg{background:#27500A;color:#C0DD97}.t3 .cn{color:#C0DD97}.t3 .en2,.t3 .dt,.t3 .dno{color:#97C459}
+.rl4{background:#04342C;border-right-color:#1D9E75}.rl4 .zh{color:#9FE1CB}.rl4 .en{color:#5DCAA5}
+.t4{background:#04342C;border-color:#0F6E56}.t4 .tg{background:#085041;color:#9FE1CB}.t4 .cn{color:#9FE1CB}.t4 .en2,.t4 .dt,.t4 .dno{color:#5DCAA5}.t4 .dr{background:#085041;color:#9FE1CB}.t4 .disc{background:#085041;color:#9FE1CB}
+.rl5{background:#042C53;border-right-color:#185FA5}.rl5 .zh{color:#B5D4F4}.rl5 .en{color:#85B7EB}
+.t5{background:#042C53;border-color:#185FA5}.t5 .tg{background:#0C447C;color:#B5D4F4}.t5 .cn{color:#B5D4F4}.t5 .en2,.t5 .dt,.t5 .dno{color:#85B7EB}.t5 .disc{background:#0C447C;color:#B5D4F4}.t5 .pl{background:#0C447C;color:#B5D4F4}.t5 .sb{background:#0C447C;color:#B5D4F4}
+.rl6{background:#26215C;border-right-color:#7F77DD}.rl6 .zh{color:#CECBF6}.rl6 .en{color:#AFA9EC}
+.t6{background:#26215C;border-color:#534AB7}.t6 .tg{background:#3C3489;color:#CECBF6}.t6 .cn{color:#CECBF6}.t6 .en2,.t6 .dt,.t6 .dno{color:#AFA9EC}
+.rl7{background:#2C2C2A;border-right-color:#888780}.rl7 .zh{color:#D3D1C7}.rl7 .en{color:#B4B2A9}
+.t7s{background:#242422;border-color:#5F5E5A}.t7s .tg{background:#3A3A38;color:#D3D1C7}.t7s .cn{color:#D3D1C7}.t7s .en2,.t7s .dt,.t7s .dno{color:#B4B2A9}
+.t7r{background:#2C2C2A;border-color:#444441;border-style:dashed}.t7r .tg{background:#383836;color:#B4B2A9}.t7r .cn{color:#888780;font-style:italic}.t7r .en2,.t7r .dt,.t7r .dno{color:#6b6a64}.t7r .dr{background:#383836;color:#B4B2A9}
+td.rl{background:var(--bg)}
+}
+
+.leg{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;padding-top:8px;border-top:0.5px solid var(--bdr2);max-width:100%;overflow-x:hidden}
+.le{display:flex;align-items:center;gap:4px;font-size:8px;color:var(--txt2)}
+.ls{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.lsd{width:9px;height:9px;border-radius:2px;flex-shrink:0;border:1.5px dashed}
+.key-row{font-size:7px;color:var(--txt3);margin-left:auto;text-align:right;line-height:1.75;max-width:380px}
+.fn{font-size:7.5px;color:var(--txt3);margin-top:8px;padding:6px 9px;border:0.5px solid var(--bdr2);border-radius:5px;line-height:1.85;overflow-x:auto}
+.fn b{color:var(--txt2);font-weight:600}
+.appx{margin-top:14px;border-top:1px solid var(--bdr2);padding-top:10px;overflow-x:auto}
+.appx h2{font-size:11px;font-weight:500;margin-bottom:8px}
+.fn-notes{max-width:100%;margin-top:4px}
+.appx table{width:auto;min-width:0;border-collapse:collapse;table-layout:auto}
+.appx th{font-size:8px;font-weight:600;color:var(--txt3);text-align:left;padding:3px 4px 3px 0;border-bottom:1px solid var(--bdr2)}
+.appx td{font-size:8.5px;padding:3px 4px 3px 0;border-bottom:0.5px solid var(--bdr2);vertical-align:top;line-height:1.45}
+.appx tr:last-child td{border-bottom:none}
+.ab{font-weight:700;color:var(--txt2);font-size:9px;white-space:nowrap}
+</style>
+</head><body>
+<h1>China AI Regulatory Matrix <span style="font-size:9px;font-weight:400;color:var(--txt3)">— English-primary edition for Western readers</span></h1>
+<p class="sub">
+  Legal hierarchy (top→bottom) × Effective date (left→right) &nbsp;|&nbsp;
+  <b>Color</b> = legal tier (赤橙黄绿青蓝紫灰) &nbsp;·&nbsp;
+  <b>Tag</b> = issuing body (English abbrev.; ≤3 listed; &gt;3: lead+N) &nbsp;·&nbsp;
+  Solid card = GB/T · GB standard &nbsp;·&nbsp; Dashed card = TC260 reference framework
+</p>
+<div class="sh">← scroll horizontally →</div>
+<div class="rw"><table>
+<thead><tr>
+  <th class="corner"></th>
+  <th class="yr">Pre-2020</th>
+  <th class="yr">2020</th>
+  <th class="yr">2021</th>
+  <th class="yr">2022</th>
+  <th class="yr">2023</th>
+  <th class="yr">2024</th>
+  <th class="yr">2025</th>
+  <th class="yr">2026</th>
+</tr></thead>
+<tbody>
+<!-- T0 宪法 -->
+<tr>
+<td class="rl rl0"><span class="zh">Constitution</span><span class="en">宪法</span></td>
+<td class="rc"><div class="ri t0"><span class="tg">NPC</span><span class="cn"><a href="https://www.gov.cn/guoqing/2018-03/22/content_5276318.htm" target="_blank">Constitution of the PRC</a></span><span class="en2">中华人民共和国宪法</span><span class="dt">adopted Dec 4, 1982; last amended Mar 11, 2018</span></div></td>
+<td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td>
+</tr>
+
+<!-- T1 法律 -->
+<tr>
+<td class="rl rl1"><span class="zh">NPC / NPCSC Laws</span><span class="en">法律</span></td>
+<!-- Pre-2020 -->
+<td class="rc">
+  <div class="ri t1"><span class="tg">NPC</span><span class="cn"><a href="https://flk.npc.gov.cn/detail?id=ff808081752b7d430175e4766bab1557" target="_blank">Copyright Law of the PRC (1991, 2010 Revision)</a></span><span class="en2">中华人民共和国著作权法（2010年修订）</span><span class="dt">eff. Jun 1, 1991; 2010 rev. eff. Apr 1, 2010</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="dno">主席令第4号</span><span class="cn"><a href="https://www.most.gov.cn/xxgk/xinxifenlei/fdzdgknr/fgzc/flfg/200811/t20081129_65693.html" target="_blank">S&amp;T Progress Law of the PRC</a></span><span class="en2">中华人民共和国科学技术进步法</span><span class="dt">eff. Oct 1, 1993</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="cn"><a href="https://www.spp.gov.cn/spp/fl/201802/t20180206_364975.shtml" target="_blank">Criminal Law of the PRC (1997 Revision)</a></span><span class="en2">中华人民共和国刑法（1997年修订）</span><span class="dt">eff. Oct 1, 1997</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="dno">主席令第53号</span><span class="cn"><a href="https://flk.npc.gov.cn/detail?id=021e7d7684474107b8f3febbb1c4f8b5" target="_blank">Cybersecurity Law of the PRC [amended in 2025; see 2025 Amendment, effective Jan 1, 2026]</a></span><span class="en2">中华人民共和国网络安全法</span><span class="dt">eff. Jun 1, 2017</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="cn"><a href="https://www.cac.gov.cn/2018-09/01/c_1123362506.htm" target="_blank">E-Commerce Law of the PRC</a></span><span class="en2">中华人民共和国电子商务法</span><span class="dt">eff. Jan 1, 2019</span></div>
+</td>
+<!-- 2020 --><td class="rc"><div class="re"></div></td>
+<!-- 2021 -->
+<td class="rc">
+  <div class="ri t1"><span class="tg">NPC</span><span class="dno">主席令第45号</span><span class="cn"><a href="https://flk.npc.gov.cn/detail?id=ff808081729d1efe01729d50b5c500bf" target="_blank">Civil Code of the PRC</a></span><span class="en2">中华人民共和国民法典</span><span class="dt">eff. Jan 1, 2021</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="cn"><a href="https://flk.npc.gov.cn/detail?id=ff808081752b7d430175e4766bab1557" target="_blank">Copyright Law of the PRC (2020 Amendment)</a><span class="am">!</span></span><span class="en2">中华人民共和国著作权法（2020年修正）</span><span class="dt">eff. Jun 1, 2021</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="dno">主席令第84号</span><span class="cn"><a href="http://www.npc.gov.cn/npc/c2/c30834/202106/t20210610_311888.html" target="_blank">Data Security Law of the PRC</a></span><span class="en2">中华人民共和国数据安全法</span><span class="dt">eff. Sep 1, 2021</span></div>
+  <div class="ri t1"><span class="tg">NPC</span><span class="dno">主席令第91号</span><span class="cn"><a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html" target="_blank">Personal Information Protection Law (PIPL)</a></span><span class="en2">中华人民共和国个人信息保护法</span><span class="dt">eff. Nov 1, 2021</span></div>
+</td>
+<!-- 2022 -->
+<td class="rc">
+  <div class="ri t1"><span class="tg">NPC</span><span class="dno">主席令第103号</span><span class="cn"><a href="https://www.most.gov.cn/xxgk/xinxifenlei/fdzdgknr/fgzc/flfg/202201/t20220118_179043.html" target="_blank">S&amp;T Progress Law (2021 Revision)</a><span class="am">!</span></span><span class="en2">中华人民共和国科学技术进步法（2021年修订）</span><span class="dt">eff. Jan 1, 2022</span></div>
+</td>
+<td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td>
+<!-- 2026 -->
+<td class="rc">
+  <div class="ri t1"><span class="tg">NPC</span><span class="cn"><a href="https://www.cac.gov.cn/2025-12/29/c_1768735112911946.htm" target="_blank">Cybersecurity Law of the PRC (2025 Amendment; effective Jan 1, 2026) [❗ amends 2017 original]</a><span class="am">!</span></span><span class="en2">中华人民共和国网络安全法（2025年修正）</span><span class="dt">eff. Jan 1, 2026</span></div>
+</td>
+</tr>
+<!-- T2 全国性政策 -->
+<tr>
+<td class="rl rl2"><span class="zh">National-Level Policy &amp; Int'l Initiatives</span><span class="en">全国性政策与国际倡议</span><span class="note">CPC CC · SC · CPO+SCO · high political authority</span></td>
+<!-- Pre-2020 -->
+<td class="rc">
+  <div class="ri t2"><span class="tg">SC</span><span class="dno">国发〔2017〕35号</span><span class="cn"><a href="http://www.scio.gov.cn/gwyzclxcfh/cfh/2017n_14540/2017n07y21r_14662/wjxgzc_14668/202208/t20220808_298141.html" target="_blank">New Generation AI Development Plan</a></span><span class="en2">新一代人工智能发展规划</span><span class="dt">Jul 20, 2017</span></div>
+  
+</td>
+<!-- 2020 --><td class="rc"><div class="re"></div></td>
+<!-- 2021 -->
+<td class="rc">
+  <div class="ri t2"><span class="tg">NPC</span><span class="cn"><a href="https://www.gov.cn/xinwen/2021-03/13/content_5592681.htm" target="_blank">14th Five-Year Development Plan and 2035 Long-Range Objectives Outline</a></span><span class="en2">中华人民共和国国民经济和社会发展第十四个五年规划和2035年远景目标纲要</span><span class="dt">NPC approved Mar 11, 2021</span></div>
+  
+  <div class="ri t2"><span class="tg">SC</span><span class="dno">国发〔2021〕29号</span><span class="cn"><a href="https://www.gov.cn/zhengce/content/2022-01/12/content_5667817.htm" target="_blank">"14th Five-Year" Digital Economy Development Plan</a></span><span class="en2">"十四五"数字经济发展规划</span><span class="dt">Dec 12, 2021</span></div>
+</td>
+<!-- 2022 -->
+<td class="rc">
+  <div class="ri t2"><span class="tg">CPO+SCO</span><span class="cn"><a href="https://www.most.gov.cn/xxgk/xinxifenlei/fdzdgknr/fgzc/gfxwj/gfxwj2022/202203/t20220321_179899.html" target="_blank">Opinions on Strengthening S&amp;T Ethics Governance</a></span><span class="en2">关于加强科技伦理治理的意见</span><span class="dt">Mar 20, 2022</span></div>
+
+  <div class="ri t2"><span class="tg">MFA</span><span class="cn"><a href="https://www.mfa.gov.cn/web//wjb_673085/zzjg_673183/jks_674633/zclc_674645/rgzn/202211/t20221117_10976728.shtml" target="_blank">China's Position Paper on Strengthening AI Ethics Governance [updated Jan 2024]</a></span><span class="en2">中国关于加强人工智能伦理治理的立场文件</span><span class="dt">Nov 2022</span></div>
+</td>
+<!-- 2023 -->
+<td class="rc">
+  <div class="ri t2"><span class="tg">CPC CC+SC</span><span class="cn"><a href="https://www.gov.cn/zhengce/2023-02/27/content_5743484.htm" target="_blank">Overall Layout Plan for Building Digital China</a></span><span class="en2">数字中国建设整体布局规划</span><span class="dt">Feb 27, 2023</span></div>
+  <div class="ri t2"><span class="tg">中国政府</span><span class="cn"><a href="https://www.mfa.gov.cn/eng/zy/gb/202405/t20240531_11367503.html" target="_blank">Global AI Governance Initiative [submitted to UN, A/78/565]</a></span><span class="en2">全球人工智能治理倡议</span><span class="dt">Oct 18, 2023</span></div>
+</td>
+<!-- 2024 --><td class="rc"><div class="re"></div>
+  <div class="ri t2"><span class="tg">MFA</span><span class="cn"><a href="https://www.mfa.gov.cn/web/wjb_673085/zzjg_673183/jks_674633/fywj_674643/202405/t20240523_11310587.shtml" target="_blank">China's Submission to the UN Secretary-General on Lethal Autonomous Weapons Systems</a></span><span class="en2">中国就"致命性自主武器系统"问题向联合国秘书长提交的文件</span><span class="dt">May 23, 2024</span></div>
+
+  <div class="ri t2"><span class="tg">MFA</span><span class="cn"><a href="https://www.mfa.gov.cn/eng/xw/zyxw/202407/t20240704_11448351.html" target="_blank">Shanghai Declaration on Global AI Governance [multilateral declaration; World Artificial Intelligence Conference 2024]</a></span><span class="en2">Shanghai Declaration on Global AI Governance</span><span class="dt">Jul 4, 2024</span></div>
+</td>
+<!-- 2025 -->
+<td class="rc">
+  <div class="ri t2"><span class="tg">中国政府</span><span class="cn"><a href="https://www.mfa.gov.cn/zyxw/202507/t20250726_11677803.shtml" target="_blank">Global AI Governance Action Plan</a></span><span class="en2">人工智能全球治理行动计划</span><span class="dt">Jul 26, 2025 · 2025 World AI Conference</span></div>
+  <div class="ri t2"><span class="tg">中国政府</span><span class="cn"><a href="https://www.cac.gov.cn/2025-12/04/c_1766577618173846.htm" target="_blank">China's Initiative on Deepening China-ASEAN Cooperation on Digital Governance</a></span><span class="en2">中方关于深化中国—东盟数字治理合作的倡议</span><span class="dt">Dec 2025</span></div>
+</td>
+<!-- 2026 -->
+<td class="rc">
+  <div class="ri t2"><span class="tg">NPC</span><span class="cn"><a href="https://www.news.cn/politics/20260313/085af5de5a4b4268aa7d87d90817df2f/c.html" target="_blank">15th Five-Year Development Plan Outline</a></span><span class="en2">中华人民共和国国民经济和社会发展第十五个五年规划纲要</span><span class="dt">NPC approved Mar 2026</span></div>
+</td>
+</tr>
+<!-- T3 行政法规 -->
+<tr>
+<td class="rl rl3"><span class="zh">State Council Regulations</span><span class="en">行政法规</span></td>
+<!-- Pre-2020 -->
+<td class="rc">
+  <div class="ri t3"><span class="tg">SC</span><span class="dno">国务院令第292号</span><span class="cn"><a href="https://www.cac.gov.cn/2014-08/19/c_1112138363.htm" target="_blank">Measures for Administration of Internet Information Services</a></span><span class="en2">互联网信息服务管理办法</span><span class="dt">eff. Sep 25, 2000</span></div>
+</td>
+<td class="rc"><div class="re"></div></td>
+<!-- 2021 -->
+<td class="rc">
+  <div class="ri t3"><span class="tg">SC</span><span class="dno">国务院令第745号</span><span class="cn"><a href="https://www.cac.gov.cn/2021-08/17/c_1630785976988160.htm" target="_blank">Regulations on the Security Protection of Critical Information Infrastructure</a></span><span class="en2">关键信息基础设施安全保护条例</span><span class="dt">eff. Sep 1, 2021</span></div>
+</td>
+<td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td>
+<!-- 2024 -->
+<td class="rc">
+  <div class="ri t3"><span class="tg">SC</span><span class="dno">国务院令第766号</span><span class="cn"><a href="https://flk.npc.gov.cn/detail?id=ff8081818c24e05b018c8d0817b31915" target="_blank">Regulations on Online Protection of Minors</a></span><span class="en2">未成年人网络保护条例</span><span class="dt">eff. Jan 1, 2024</span></div>
+</td>
+<!-- 2025 -->
+<td class="rc">
+  <div class="ri t3"><span class="tg">SC</span><span class="dno">国务院令第790号</span><span class="cn"><a href="https://www.gov.cn/zhengce/content/202409/content_6977766.htm" target="_blank">Regulations on Network Data Security Management</a></span><span class="en2">网络数据安全管理条例</span><span class="dt">eff. Jan 1, 2025</span></div>
+  <div class="ri t3"><span class="tg">SC</span><span class="dno">国发〔2025〕11号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-08/27/c_1758018277755538.htm" target="_blank">State Council Opinions on Further Implementing the "AI+" Initiative</a></span><span class="en2">国务院关于深入实施"人工智能+"行动的意见</span><span class="dt">Aug 21, 2025</span></div>
+  <div class="ri t3"><span class="tg">SCO</span><span class="dno">国办发〔2025〕37号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-11/07/c_1764240733658111.htm" target="_blank">SC Office Implementation Opinions on Accelerating AI Scenario Cultivation and Large-Scale Application</a></span><span class="en2">国务院办公厅关于加快场景培育和开放推动新场景大规模应用的实施意见</span><span class="dt">Nov 2025</span></div>
+</td>
+<td class="rc"><div class="re"></div></td>
+</tr>
+<!-- T4 部门规章 -->
+<tr>
+<td class="rl rl4"><span class="zh">Departmental Rules</span><span class="en">部门规章</span></td>
+<td class="rc"><div class="re"></div></td>
+<!-- 2020 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC</span><span class="dno">国家互联网信息办公室令第5号</span><span class="cn"><a href="https://www.cac.gov.cn/2019-12/20/c_1578375159509309.htm" target="_blank">Provisions on Network Information Content Ecosystem Governance</a></span><span class="en2">网络信息内容生态治理规定</span><span class="dt">eff. Mar 1, 2020</span></div>
+</td>
+<!-- 2021 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC+MIIT+MPS</span><span class="cn"><a href="https://www.cac.gov.cn/2021-07/13/c_1627761607640342.htm" target="_blank">Provisions on Management of Network Product Security Vulnerabilities</a></span><span class="en2">网络产品安全漏洞管理规定</span><span class="dt">eff. Sep 1, 2021</span></div>
+
+  <div class="ri t4"><span class="tg">CAC+4</span><span class="dno">国家互联网信息办公室令第7号</span><span class="cn"><a href="https://www.cac.gov.cn/2021-08/20/c_1631049984897667.htm" target="_blank">Provisions on Auto Data Security Administration (Trial)</a></span><span class="en2">汽车数据安全管理若干规定（试行）</span><span class="dt">eff. Oct 1, 2021</span></div>
+</td>
+<!-- 2022 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC+12</span><span class="dno">十三部门令第8号</span><span class="cn"><a href="https://www.cac.gov.cn/2022-01/04/c_1642894602182845.htm" target="_blank">Measures for Cybersecurity Review [supersedes 2020 version; covers critical infra procurement and data processing]</a></span><span class="en2">网络安全审查办法</span><span class="dt">eff. Feb 15, 2022</span></div>
+  <div class="ri t4"><span class="tg">CAC+3</span><span class="dno">国家互联网信息办公室令第9号</span><span class="cn"><a href="https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm" target="_blank">Provisions on the Administration of Algorithmic Recommendations in Internet Information Services</a></span><span class="en2">互联网信息服务算法推荐管理规定</span><span class="dt">eff. Mar 1, 2022</span></div>
+
+  <div class="ri t4"><span class="tg">CAC</span><span class="dno">国家互联网信息办公室令第11号</span><span class="cn"><a href="https://www.cac.gov.cn/2022-07/07/c_1658811536396503.htm" target="_blank">Measures for Security Assessment of Data Exports [complemented/partially superseded by Cross-border Data Flow Provisions 2024]</a></span><span class="en2">数据出境安全评估办法</span><span class="dt">eff. Sep 1, 2022</span></div>
+</td>
+<!-- 2023 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC+MIIT+MPS</span><span class="dno">国家互联网信息办公室令第12号</span><span class="cn"><a href="https://www.cac.gov.cn/2022-12/11/c_1672221949354811.htm" target="_blank">Provisions on the Administration of Deep Synthesis of Internet Information Services</a></span><span class="en2">互联网信息服务深度合成管理规定</span><span class="dt">eff. Jan 10, 2023</span></div>
+  <div class="ri t4"><span class="tg">CAC</span><span class="cn"><a href="https://www.cac.gov.cn/2023-04/11/c_1682854275475410.htm" target="_blank">Measures for the Management of Generative AI Services [public consultation draft; precursor to Interim Measures, finalized Aug 2023]</a><span class="dr">(征求意见稿)</span></span><span class="en2">生成式人工智能服务管理办法</span><span class="dt">Apr 11, 2023 · public consultation draft; precursor to 暂行办法</span></div>
+  <div class="ri t4"><span class="tg">SAMR</span><span class="dno">国家市场监督管理总局令第72号</span><span class="cn"><a href="https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/202306/t20230620_481045.html" target="_blank">Measures for the Administration of Internet Advertising</a></span><span class="en2">互联网广告管理办法</span><span class="dt">eff. May 1, 2023</span></div>
+
+  <div class="ri t4"><span class="tg">CAC+6</span><span class="dno">国家互联网信息办公室等七部门令第15号</span><span class="cn"><a href="http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm" target="_blank">Interim Measures for the Management of Generative AI Services [❗ finalized; supersedes public consultation draft]</a><span class="am">❗</span></span><span class="en2">生成式人工智能服务管理暂行办法</span><span class="dt">eff. Aug 15, 2023</span></div>
+</td>
+<!-- 2024 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC</span><span class="dno">国家互联网信息办公室令第16号</span><span class="cn"><a href="https://www.cac.gov.cn/2024-03/22/c_1712776611775634.htm" target="_blank">Provisions on Promoting and Regulating Cross-Border Data Flows [complements/partially supersedes Data Export Security Assessment Measures 2022]</a></span><span class="en2">促进和规范数据跨境流动规定</span><span class="dt">eff. Mar 22, 2024</span></div>
+  <div class="ri t4"><span class="tg">CAC+3</span><span class="dno">国家互联网信息办公室令第17号</span><span class="cn"><a href="https://www.cac.gov.cn/2024-06/14/c_1720043894161555.htm" target="_blank">Provisions on the Governance of Online Violence Information</a></span><span class="en2">网络暴力信息治理规定</span><span class="dt">eff. Aug 1, 2024</span></div>
+  <div class="ri t4"><span class="tg">SAMR</span><span class="dno">国家市场监督管理总局令第91号</span><span class="cn"><a href="https://www.gov.cn/gongbao/2024/issue_11466/202407/content_6963168.html" target="_blank">Interim Provisions on Online Unfair Competition</a></span><span class="en2">网络反不正当竞争暂行规定</span><span class="dt">eff. Sep 1, 2024</span></div>
+  <div class="ri t4"><span class="tg">NDRC+MOFCOM</span><span class="dno">国家发展改革委商务部令第23号</span><span class="cn"><a href="https://www.mofcom.gov.cn/zcfb/zgdwjjmywg/art/2025/art_b4d7cf1aff0a414680acc9bc9a481bc1.html" target="_blank">Special Administrative Measures for Foreign Investment Access – Negative List (2024)</a></span><span class="en2">外商投资准入特别管理措施（负面清单）（2024年版）</span><span class="dt">eff. Nov 1, 2024</span></div>
+</td>
+<!-- 2025 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC+MPS</span><span class="dno">国家互联网信息办公室令第19号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-03/21/c_1744174262156096.htm" target="_blank">Measures for Security Management of Facial Recognition Technology Applications</a></span><span class="en2">人脸识别技术应用安全管理办法</span><span class="dt">eff. Jun 1, 2025</span></div>
+  <div class="ri t4"><span class="tg">CMA+CAC</span><span class="dno">中国气象局令第45号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-04/30/c_1747718893685033.htm" target="_blank">Measures for AI Meteorological Application Services</a></span><span class="en2">人工智能气象应用服务办法</span><span class="dt">eff. Jun 1, 2025</span></div>
+  <div class="ri t4"><span class="tg">MPS+5</span><span class="dno">公安部等六部门令第173号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-05/23/c_1749711107835487.htm" target="_blank">Measures for the Administration of National Online Identity Authentication Public Services</a></span><span class="en2">国家网络身份认证公共服务管理办法</span><span class="dt">eff. Jul 15, 2025</span></div>
+  <div class="ri t4"><span class="tg">MIIT+10</span><span class="cn"><a href="https://www.miit.gov.cn/jgsj/kjs/jscx/gjsfz/art/2025/art_092a447008f340d3abd55819b8c8e5cf.html" target="_blank">Measures for AI S&amp;T Ethics Management Services (Trial) [public consultation draft; not yet in force]</a><span class="dr">(征求意见稿)</span></span><span class="en2">人工智能科技伦理管理服务办法（试行）</span><span class="dt">consultation Aug 2025</span></div>
+
+  <div class="ri t4"><span class="tg">CAC</span><span class="cn"><a href="https://www.cac.gov.cn/2025-12/27/c_1768571207311996.htm" target="_blank">Interim Measures for Management of AI Anthropomorphic Interaction Services [public consultation draft; not yet in force]</a><span class="dr">(征求意见稿)</span></span><span class="en2">人工智能拟人化互动服务管理暂行办法</span><span class="dt">consultation Dec 2025</span></div>
+</td>
+<!-- 2026 -->
+<td class="rc">
+  <div class="ri t4"><span class="tg">CAC+SAMR</span><span class="dno">国家互联网信息办公室、国家市场监督管理总局令第20号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-10/17/c_1762449728720008.htm" target="_blank">Measures for Personal Information Export Certification</a></span><span class="en2">个人信息出境认证办法</span><span class="dt">eff. Jan 1, 2026</span></div>
+  <div class="ri t4"><span class="tg">CNIPA</span><span class="dno">国家知识产权局令第八十四号</span><span class="cn"><a href="https://www.cnipa.gov.cn/art/2025/11/13/art_74_202560.html" target="_blank">CNIPA Decision on Amending the Patent Examination Guidelines</a></span><span class="en2">国家知识产权局关于修改《专利审查指南》的决定</span><span class="dt">eff. Jan 1, 2026</span></div>
+  <div class="ri t4"><span class="tg">NDRC+MOFCOM</span><span class="dno">国家发展和改革委员会商务部令第37号</span><span class="cn"><a href="https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202512/t20251224_1402564.html" target="_blank">Catalogue for Encouraging Foreign Investment (2025 Edition)</a></span><span class="en2">鼓励外商投资产业目录（2025年版）</span><span class="dt">eff. Feb 1, 2026</span></div>
+  <div class="ri t4"><span class="tg">SAMR+CAC</span><span class="dno">国家市场监督管理总局、国家互联网信息办公室令第117号</span><span class="cn"><a href="https://www.cac.gov.cn/2026-01/07/c_1769516655383334.htm" target="_blank">Measures for Supervision and Administration of Livestream E-Commerce</a></span><span class="en2">直播电商监督管理办法</span><span class="dt">eff. Feb 1, 2026</span></div>
+</td>
+</tr>
+<!-- T5 地方性法规 -->
+<tr>
+<td class="rl rl5"><span class="zh">Local Legislation &amp; Rules</span><span class="en">地方性法规与规章</span><span class="note">* partial list</span></td>
+<td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td>
+<!-- 2022 -->
+<td class="rc">
+  <div class="ri t5"><span class="tg">上海市政府</span><span class="dno">上海市人民政府令第60号</span><span class="cn"><a href="https://www.sheitc.sh.gov.cn/bmgzjxgwj/20241029/7dbd5af5aba74606b794ebc4046dcade.html" target="_blank">Shanghai Measures for the Administration of Testing and Application of Intelligent Connected Vehicles</a></span><span class="en2">上海市智能网联汽车测试与应用管理办法</span><span class="dt">eff. Feb 15, 2022</span></div>
+  <div class="ri t5"><span class="tg">上海市人大</span><div class="sb">★ 全国首部AI省级法规</div><span class="cn"><a href="https://www.shanghai.gov.cn/hqcyfz2/20230627/3a1fcfeff9234e8e9e6623eb12b49522.html" target="_blank">上海市促进人工智能产业发展条例</a></span><span class="en2">Shanghai Regulations on Promoting AI Industry Development</span><span class="dt">eff. Oct 1, 2022</span></div>
+
+  <div class="ri t5"><span class="tg">深圳市人大</span><span class="cn"><a href="https://opendata.sz.gov.cn/article/article/toArticleDetails/1698878093958434816" target="_blank">Regulations of the Shenzhen SEZ on Promoting AI Industry</a></span><span class="en2">深圳经济特区人工智能产业促进条例</span><span class="dt">eff. Nov 1, 2022</span></div>
+</td>
+<td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td>
+<!-- 2025 -->
+<td class="rc">
+  <div class="ri t5"><span class="tg">杭州市人大</span><div class="sb">★ 全国首部具身智能机器人地方法规</div><span class="cn"><a href="https://hznews.hangzhou.com.cn/chengshi/content/2026-03/29/content_9198493.htm" target="_blank">杭州市促进具身智能机器人产业发展条例</a></span><span class="en2">Hangzhou Regulations on Promoting Embodied Intelligence Robot Industry Development</span><span class="dt">passed Dec 29, 2025; pending Zhejiang NPC approval</span></div>
+</td>
+<!-- 2026 -->
+<td class="rc">
+  <div class="ri t5"><span class="tg">北京市人大</span><span class="cn"><a href="https://www.bjrd.gov.cn/xwzx/fzlt/202601/t20260127_4469281.html" target="_blank">Beijing Regulations on AI Industry Development</a><span class="pl">(planned)</span></span><span class="en2">北京市人工智能产业发展条例</span><span class="dt">announced Jan 27, 2026; not yet introduced</span></div>
+  <div class="ri t5"><span class="tg">广东省人大</span><span class="cn"><a href="http://www.scio.gov.cn/xwfb/dfxwfb/gssfbh/gd_13844/202601/t20260127_948052.html" target="_blank">Guangdong Regulations on Promoting AI Industry</a><span class="disc">(disc.)</span></span><span class="en2">广东省人工智能产业促进条例</span><span class="dt">drafting in progress; timeline unconfirmed</span></div>
+</td>
+</tr>
+<!-- T6 规范性文件 -->
+<tr>
+<td class="rl rl6"><span class="zh">Normative Docs &amp; Policy Guidance</span><span class="en">规范性文件</span></td>
+<!-- Pre-2020 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MOE</span><span class="dno">教技〔2018〕3号</span><span class="cn"><a href="http://www.moe.gov.cn/srcsite/A16/s7062/201804/t20180410_332722.html" target="_blank">AI Innovation Action Plan for Higher Education Institutions</a></span><span class="en2">高等学校人工智能创新行动计划</span><span class="dt">Apr 3, 2018</span></div>
+  <div class="ri t6"><span class="tg">MOE</span><span class="dno">教师厅〔2018〕7号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2018-12/31/content_5441144.htm" target="_blank">MOE Notice on Launching AI-Assisted Teacher Development Action Pilot Programme</a></span><span class="en2">教育部办公厅关于开展人工智能助推教师队伍建设行动试点工作的通知</span><span class="dt">Aug 7, 2018</span></div>
+  <div class="ri t6"><span class="tg">MOHRSS+SAMR+NBS</span><span class="dno">人社厅发〔2019〕48号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2019-09/26/content_5433626.htm" target="_blank">Notice on Publishing Occupational Information for AI Engineering Technicians</a></span><span class="en2">关于发布人工智能工程技术人员等职业信息的通知</span><span class="dt">Apr 1, 2019</span></div>
+
+<div class="ri t6"><span class="tg">NAIGEC</span><span class="cn"><a href="https://www.most.gov.cn/kjbgz/201906/t20190617_147107.html" target="_blank">Governance Principles for New Generation AI</a></span><span class="en2">新一代人工智能治理原则</span><span class="dt">Jun 17, 2019</span></div>
+
+  <div class="ri t6"><span class="tg">MOST</span><span class="dno">国科发规〔2019〕298号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2019-12/03/content_5457884.htm" target="_blank">MOST Notice on Issuing Guidelines for National New-Gen AI Innovation Development Pilot Zones</a></span><span class="en2">关于印发《国家新一代人工智能创新发展试验区建设工作指引》的通知</span><span class="dt">Aug 29, 2019</span></div>
+
+  <div class="ri t6"><span class="tg">NFGA</span><span class="dno">林信发〔2019〕105号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2019-11/25/content_5455166.htm" target="_blank">NFGA Guiding Opinions on Promoting AI Development in Forestry and Grassland</a></span><span class="en2">国家林业和草原局关于促进林业和草原人工智能发展的指导意见</span><span class="dt">Nov 8, 2019</span></div>
+
+  <div class="ri t6"><span class="tg">MOFCOM+MOST</span><span class="dno">商务部 科技部公告2020年第38号</span><span class="cn"><a href="https://fms.mofcom.gov.cn/zcfg/jsjckzcfg/art/2020/art_7ae588041000455ba6aaa4bbdbe3ca1a.html" target="_blank">China Prohibited/Restricted Technology Export Catalogue (2020; superseded by 2023 version)</a></span><span class="en2">中国禁止出口限制出口技术目录（2020年版，已废止）</span><span class="dt">Aug 2020</span></div>
+
+  <div class="ri t6"><span class="tg">MIIT+MPS+MOT</span><span class="dno">工信部联装〔2018〕66号</span><span class="cn"><a href="https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_61078.html" target="_blank">Connected Vehicle Road Testing Management Specifications (Trial) [superseded by 2021 version]</a></span><span class="en2">智能网联汽车道路测试管理规范（试行）（已废止）</span><span class="dt">eff. May 2018; superseded Sep 1, 2021</span></div>
+</td>
+<!-- 2020 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MOE+NDRC+MOF</span><span class="dno">教研〔2020〕4号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2020-03/03/content_5486326.htm" target="_blank">Opinions on "Double First-Class" Universities Advancing Interdisciplinary AI Graduate Education</a></span><span class="en2">关于"双一流"建设高校促进学科融合加快人工智能领域研究生培养的若干意见</span><span class="dt">Jan 21, 2020</span></div>
+
+  <div class="ri t6"><span class="tg">MOHRSS+SAMR+NBS</span><span class="dno">人社厅发〔2020〕17号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2020-02/26/content_5490210.htm" target="_blank">Notice on Publishing Occupational Information for Intelligent Manufacturing Engineering Technicians</a></span><span class="en2">关于发布智能制造工程技术人员等职业信息的通知</span><span class="dt">Feb 25, 2020</span></div>
+
+  <div class="ri t6"><span class="tg">SAC+4</span><span class="dno">国标委联〔2020〕35号</span><span class="cn"><a href="https://www.cac.gov.cn/2020-08/07/c_1598355503455877.htm" target="_blank">Guidelines for Building the National New-Gen AI Standards System</a></span><span class="en2">国家新一代人工智能标准体系建设指南</span><span class="dt">Jul 27, 2020</span></div>
+</td>
+<!-- 2021 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MOHRSS+MIIT</span><span class="dno">人社厅发〔2021〕10号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2021-02/22/content_5588249.htm" target="_blank">MOHRSS+MIIT Notice on Promulgating National Skill Standards for Intelligent Manufacturing Engineering Technicians</a></span><span class="en2">人力资源社会保障部办公厅 工业和信息化部办公厅关于颁布智能制造工程技术人员等国家职业技术技能标准的通知</span><span class="dt">Feb 3, 2021</span></div>
+  <div class="ri t6"><span class="tg">MIIT</span><span class="dno">工信部信管函〔2021〕18号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/2021-02/10/content_5586574.htm" target="_blank">MIIT Notice on Resolving Difficulties Elderly People Face Using Smart Technology</a></span><span class="en2">工业和信息化部关于切实解决老年人运用智能技术困难便利老年人使用智能化产品和服务的通知</span><span class="dt">Feb 10, 2021</span></div>
+  <div class="ri t6"><span class="tg">MIIT+MPS+MOT</span><span class="dno">工信部联通装〔2021〕97号</span><span class="cn"><a href="https://www.mps.gov.cn/n6557558/c8087335/content.html" target="_blank">Connected Vehicle Road Testing and Demonstration Application Management Specifications (Trial)</a><span class="am">!</span></span><span class="en2">智能网联汽车道路测试与示范应用管理规范（试行）</span><span class="dt">eff. Sep 1, 2021 · supersedes 工信部联装[2018]66号</span></div>
+
+  <div class="ri t6"><span class="tg">MOE</span><span class="dno">教师函〔2021〕13号</span><span class="cn"><a href="http://www.moe.gov.cn/srcsite/A10/s7034/202109/t20210915_563278.html" target="_blank">Notice on Implementing the 2nd Batch of AI-Assisted Teacher Development Pilot Programme</a></span><span class="en2">教育部关于实施第二批人工智能助推教师队伍建设行动试点工作的通知</span><span class="dt">Sep 16, 2021</span></div>
+
+  <div class="ri t6"><span class="tg">CAC+8</span><span class="dno">国信办发文〔2021〕7号</span><span class="cn"><a href="https://www.cac.gov.cn/2021-09/29/c_1634507915623047.htm" target="_blank">Guiding Opinions on Strengthening Comprehensive Governance of Internet Information Service Algorithms</a></span><span class="en2">关于加强互联网信息服务算法综合治理的指导意见</span><span class="dt">Sep 17, 2021</span></div>
+
+<div class="ri t6"><span class="tg">NAIGEC</span><span class="cn"><a href="https://www.most.gov.cn/kjbgz/202109/t20210926_177063.html" target="_blank">Ethical Norms for New Generation AI</a></span><span class="en2">新一代人工智能伦理规范</span><span class="dt">Sep 25, 2021</span></div>
+</td>
+<!-- 2022 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MOST+5</span><span class="dno">国科发规〔2022〕199号</span><span class="cn"><a href="https://www.most.gov.cn/xxgk/xinxifenlei/fdzdgknr/fgzc/gfxwj/gfxwj2022/202208/t20220812_181851.html" target="_blank">Guiding Opinions on Accelerating AI Application in Scenarios to Drive High-Quality Economic Development</a></span><span class="en2">关于加快场景创新以人工智能高水平应用促进经济高质量发展的指导意见</span><span class="dt">Aug 12, 2022</span></div>
+  <div class="ri t6"><span class="tg">MOST</span><span class="dno">国科发规〔2022〕228号</span><span class="cn"><a href="https://www.most.gov.cn/xxgk/xinxifenlei/fdzdgknr/qtwj/qtwj2022/202208/t20220815_181874.html" target="_blank">MOST Notice on Supporting the Development of New-Gen AI Demonstration Application Scenarios</a></span><span class="en2">科技部关于支持建设新一代人工智能示范应用场景的通知</span><span class="dt">Aug 15, 2022</span></div>
+</td>
+<!-- 2023 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MOST+9</span><span class="dno">国科发监〔2023〕167号</span><span class="cn"><a href="https://www.most.gov.cn/xxgk/xinxifenlei/fdzdgknr/fgzc/gfxwj/gfxwj2023/202310/t20231008_188309.html" target="_blank">Measures for Review of S&amp;T Ethics (Trial)</a></span><span class="en2">科技伦理审查办法（试行）</span><span class="dt">eff. Dec 1, 2023</span></div>
+  <div class="ri t6"><span class="tg">MOFCOM+MOST</span><span class="dno">商务部 科技部公告2023年第57号</span><span class="cn"><a href="https://fms.mofcom.gov.cn/zcfg/jsjckzcfg/art/2023/art_97622195446740f897a578c784579bd8.html" target="_blank">China Prohibited/Restricted Technology Export Catalogue (2023)</a><span class="am">!</span></span><span class="en2">中国禁止出口限制出口技术目录</span><span class="dt">Dec 21, 2023</span></div>
+</td>
+<!-- 2024 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MOE</span><span class="dno">教基厅函〔2024〕5号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202402/content_6933980.htm" target="_blank">MOE Notice on Publishing the List of Primary and Secondary School AI Education Bases</a></span><span class="en2">教育部办公厅关于公布中小学人工智能教育基地名单的通知</span><span class="dt">Feb 19, 2024</span></div>
+  <div class="ri t6"><span class="tg">MCT+4</span><span class="dno">办资源发〔2024〕82号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202405/content_6950881.htm" target="_blank">Notice on Issuing the Smart Tourism Innovation and Development Action Plan</a></span><span class="en2">关于印发《智慧旅游创新发展行动计划》的通知</span><span class="dt">May 6, 2024</span></div>
+  <div class="ri t6"><span class="tg">NDRC+3</span><span class="dno">发改数据〔2024〕660号</span><span class="cn"><a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202405/t20240520_1386326.html" target="_blank">Guiding Opinions on Deepening Smart City Development and Advancing Urban Digital Transformation</a></span><span class="en2">关于深化智慧城市发展推进城市全域数字化转型的指导意见</span><span class="dt">May 20, 2024</span></div>
+
+  <div class="ri t6"><span class="tg">MIIT+3</span><span class="dno">工信部联科〔2024〕113号</span><span class="cn"><a href="https://www.miit.gov.cn/jgsj/kjs/jscx/bzgf/art/2024/art_87c0ceb25bea473ea732ea4a6fb5e470.html" target="_blank">Guidelines for Building the National AI Industry Integrated Standards System (2024 Edition)</a><span class="am">!</span></span><span class="en2">国家人工智能产业综合标准化体系建设指南（2024版）</span><span class="dt">Jun 2024</span></div>
+
+  <div class="ri t6"><span class="tg">NMPA</span><span class="dno">药监综函〔2024〕313号</span><span class="cn"><a href="https://www.nmpa.gov.cn/xxgk/fgwj/gzwj/gzwjzh/20240618144318144.html" target="_blank">NMPA Notice on Issuing the List of Typical AI Application Scenarios in Drug Regulation</a></span><span class="en2">国家药监局综合司关于印发药品监管人工智能典型应用场景清单的通知</span><span class="dt">Jun 19, 2024</span></div>
+
+  <div class="ri t6"><span class="tg">MOA</span><span class="dno">农市发〔2024〕4号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202410/content_6983057.htm" target="_blank">MOA Notice on Issuing the National Smart Agriculture Action Plan (2024-2028)</a></span><span class="en2">关于印发《全国智慧农业行动计划（2024—2028年）》的通知</span><span class="dt">Oct 23, 2024</span></div>
+
+  <div class="ri t6"><span class="tg">CAC+3</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202411/content_6989143.htm" target="_blank">Notice on Launching the "Qinglang" Special Campaign on Governance of Typical Algorithm Problems on Online Platforms</a></span><span class="en2">关于开展"清朗·网络平台算法典型问题治理"专项行动的通知</span><span class="dt">Nov 12, 2024</span></div>
+</td>
+<!-- 2025 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MIIT+MCA</span><span class="dno">工信厅联通装函〔2025〕212号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202506/content_7027053.htm" target="_blank">Notice on Launching Smart Elderly-Care Robot R&D Pairing and Scenario Pilot Programme</a></span><span class="en2">两部门关于开展智能养老服务机器人结对攻关与场景应用试点工作的通知</span><span class="dt">Jun 9, 2025</span></div>
+  <div class="ri t6"><span class="tg">CNIPA</span><span class="dno">国知办函服字〔2025〕479号</span><span class="cn"><a href="https://www.cnipa.gov.cn/art/2025/6/27/art_75_200359.html" target="_blank">CNIPA Notice on Developing "AI+" Application Scenarios for IP Information Public Services</a></span><span class="en2">国家知识产权局办公室关于开展"人工智能+"知识产权信息公共服务应用场景建设的通知</span><span class="dt">Jun 30, 2025</span></div>
+  <div class="ri t6"><span class="tg">MOFCOM+MOST</span><span class="dno">商务部 科技部公告2025年第28号</span><span class="cn"><a href="https://fms.mofcom.gov.cn/zcfg/jsjckzcfg/art/2025/art_ba35a101c22c4f6e844f749cb0a98552.html" target="_blank">China Prohibited/Restricted Technology Export Catalogue (Revised 2025)</a><span class="am">!</span></span><span class="en2">中国禁止出口限制出口技术目录（调整版）</span><span class="dt">Jul 15, 2025</span></div>
+  <div class="ri t6"><span class="tg">CIETAC</span><span class="cn"><a href="https://www.cietac.org/articles/33749" target="_blank">CIETAC Guidelines for the Use of AI Technology in Arbitration (Trial)</a></span><span class="en2">中国国际经济贸易仲裁委员会关于在仲裁中使用人工智能技术的指引（试行）</span><span class="dt">eff. Jul 18, 2025</span></div>
+  <div class="ri t6"><span class="tg">CAC+3</span><span class="dno">国信办通字〔2025〕2号</span><span class="cn"><a href="https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm" target="_blank">Measures for Labeling AI-Generated Synthetic Content [see also GB 45438-2025 implementing standard]</a></span><span class="en2">人工智能生成合成内容标识办法</span><span class="dt">eff. Sep 1, 2025</span></div>
+  <div class="ri t6"><span class="tg">NEA</span><span class="dno">国能发科技〔2025〕73号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202509/content_7040253.htm" target="_blank">Implementation Opinions on Advancing "AI+" Energy High-Quality Development</a></span><span class="en2">关于推进"人工智能+"能源高质量发展的实施意见</span><span class="dt">Sep 4, 2025</span></div>
+  <div class="ri t6"><span class="tg">MOT+6</span><span class="dno">交科技发〔2025〕92号</span><span class="cn"><a href="https://xxgk.mot.gov.cn/2020/jigou/kjs/202509/t20250925_4177256.html" target="_blank">Implementation Opinions on "AI+Transportation"</a></span><span class="en2">关于"人工智能+交通运输"的实施意见</span><span class="dt">Sep 29, 2025</span></div>
+  <div class="ri t6"><span class="tg">NDRC+4</span><span class="dno">发改数据〔2025〕1306号</span><span class="cn"><a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202510/t20251031_1401297.html" target="_blank">Action Plan for Deepening Smart City Development and Advancing Full-Domain Digital Transformation</a></span><span class="en2">深化智慧城市发展推进全域数字化转型行动计划</span><span class="dt">Oct 14, 2025</span></div>
+  <div class="ri t6"><span class="tg">SCO</span><span class="cn"><a href="https://www.cac.gov.cn/2025-10/10/c_1761819469929310.htm" target="_blank">Guidelines on the Deployment and Application of Large AI Models in Government Affairs</a></span><span class="en2">政务领域人工智能大模型部署应用指引</span><span class="dt">Oct 2025</span></div>
+  <div class="ri t6"><span class="tg">NHC+2</span><span class="dno">国卫办规划发〔2025〕30号</span><span class="cn"><a href="https://www.nhc.gov.cn/guihuaxxs/c100133/202511/d1a42ae835c743b9b3e83ac0253c3e9f.shtml" target="_blank">Implementation Opinions on Promoting "AI+Healthcare" Applications</a></span><span class="en2">关于促进和规范"人工智能+医疗卫生"应用发展的实施意见</span><span class="dt">Nov 4, 2025</span></div>
+  <div class="ri t6"><span class="tg">MIIT</span><span class="dno">工信厅科函〔2025〕427号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202511/content_7047250.htm" target="_blank">MIIT Notice on Launching the 2025 AI Industry Innovation Task Open Competition</a></span><span class="en2">工业和信息化部办公厅关于开展2025年人工智能产业及赋能新型工业化创新任务揭榜挂帅工作的通知</span><span class="dt">Nov 5, 2025</span></div>
+
+  <div class="ri t6"><span class="tg">CAAC</span><span class="dno">民航发〔2025〕24号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202512/content_7050374.htm" target="_blank">CAAC Notice on Issuing Implementation Opinions on Promoting "AI+Civil Aviation" High-Quality Development</a></span><span class="en2">中国民用航空局关于印发推动"人工智能+民航"高质量发展实施意见的通知</span><span class="dt">Dec 5, 2025</span></div>
+</td>
+<!-- 2026 -->
+<td class="rc">
+  <div class="ri t6"><span class="tg">MIIT</span><span class="dno">工信厅信管〔2025〕76号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202601/content_7054192.htm" target="_blank">MIIT Notice on Issuing the Industrial Internet and AI Integrated Empowerment Action Program</a></span><span class="en2">工业和信息化部办公厅关于印发《工业互联网和人工智能融合赋能行动方案》的通知</span><span class="dt">Jan 7, 2026</span></div>
+  <div class="ri t6"><span class="tg">MIIT+7</span><span class="dno">工信部联科〔2025〕279号</span><span class="cn"><a href="https://www.nda.gov.cn/sjj/zwgk/zcfb/0112/20260107214358696030895_pc.html" target="_blank">Implementation Opinions on the "AI+Manufacturing" Special Action</a></span><span class="en2">"人工智能+制造"专项行动实施意见</span><span class="dt">issued Jan 9, 2026</span></div>
+  <div class="ri t6"><span class="tg">NDRC+4</span><span class="dno">发改法规〔2026〕195号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202602/content_7058164.htm" target="_blank">Implementation Opinions on Accelerating AI Adoption in Public Procurement and Bidding</a></span><span class="en2">国家发展改革委等部门关于加快招标投标领域人工智能推广应用的实施意见</span><span class="dt">Feb 18, 2026</span></div>
+  <div class="ri t6"><span class="tg">CAC+7</span><span class="dno">国信办通字〔2025〕5号</span><span class="cn"><a href="https://www.cac.gov.cn/2026-01/23/c_1770728781060093.htm" target="_blank">Classification Measures for Network Information Potentially Harmful to Minors</a></span><span class="en2">可能影响未成年人身心健康的网络信息分类办法</span><span class="dt">eff. Mar 1, 2026</span></div>
+  <div class="ri t6"><span class="tg">MOT+3</span><span class="dno">交海发〔2026〕15号</span><span class="cn"><a href="https://www.gov.cn/zhengce/zhengceku/202603/content_7064168.htm" target="_blank">Smart Shipping 2030 Action Plan</a></span><span class="en2">智能航运2030行动计划</span><span class="dt">Mar 2026</span></div>
+</td>
+</tr>
+<!-- T7 技术标准与参考框架 -->
+<tr>
+<td class="rl rl7"><span class="zh">Technical Standards &amp; Reference Frameworks</span><span class="en">技术标准与参考框架</span><span class="note">solid = GB/T · dashed = TC260 framework</span></td>
+<td class="rc"><div class="re"></div></td><td class="rc"><div class="re"></div></td>
+<!-- 2021 -->
+<td class="rc">
+  <div class="ri t7s"><span class="tg">PBC · Industry Std</span><span class="dno">JR/T 0221-2021 [not GB/T]</span><span class="cn"><a href="https://std.samr.gov.cn/hb/search/stdHBDetailed?id=BF61550E44D6DEDDE05397BE0A0A63D6" target="_blank">Evaluation Specifications for AI Algorithm Financial Applications</a></span><span class="en2">人工智能算法金融应用评价规范</span><span class="dt">eff. Mar 26, 2021</span></div>
+</td>
+<td class="rc"><div class="re"></div></td>
+<!-- 2023 -->
+<td class="rc">
+  <div class="ri t7r"><span class="tg">TC260 · non-GB</span><span class="cn">Basic Security Requirements for GenAI Services [public consultation draft; precursor to TC260-003]<span class="dr">(征求意见稿)</span></span><span class="en2">生成式人工智能服务安全基本要求</span><span class="dt">Oct 2023 · precursor to TC260-003 and GB/T 45654</span></div>
+</td>
+<!-- 2024 -->
+<td class="rc">
+  <div class="ri t7r"><span class="tg">TC260 · non-GB</span><span class="cn">Basic Security Requirements for GenAI Services [TC260 technical guidance; ❗ upgraded from 2023 draft; precursor to GB/T 45654]</span><span class="en2">TC260-003《生成式人工智能服务安全基本要求》<span class="am">!</span></span><span class="dt">Feb 2024</span></div>
+  <div class="ri t7r"><span class="tg">TC260 · non-GB</span><span class="cn"><a href="https://www.cac.gov.cn/2024-09/09/c_1727567886199789.htm" target="_blank">AI Safety Governance Framework v1.0 [precursor to v2.0]</a></span><span class="en2">人工智能安全治理框架1.0</span><span class="dt">Sep 9, 2024</span></div>
+</td>
+<!-- 2025 -->
+<td class="rc">
+  <div class="ri t7r"><span class="tg">MIIT · non-GB</span><span class="cn"><a href="https://caict-llm-portal-storage.oss-cn-beijing.aliyuncs.com/6153dd34-d7fc-4d24-97b5-d40fc48105c5" target="_blank">Guidelines for Building the MIIT Domain AI Safety Governance Standards System (2025)</a><span class="dr">(draft)</span></span><span class="en2">工业和信息化领域人工智能安全治理标准体系建设指南（2025）</span><span class="dt">consultation 2025</span></div>
+  <div class="ri t7s"><span class="tg">CAC · GB</span><span class="cn"><a href="https://std.samr.gov.cn/gb/search/gbDetailed?id=301E0388CB75788DE06397BE0A0AE1B4" target="_blank">AI-Generated Synthetic Content Labeling Method [mandatory standard implementing 标识办法]</a></span><span class="en2">GB 45438—2025 网络安全技术 人工智能生成合成内容标识方法</span><span class="dt">eff. Sep 1, 2025</span></div>
+  <div class="ri t7r"><span class="tg">TC260 · non-GB</span><span class="cn"><a href="https://www.cac.gov.cn/2025-09/15/c_1759653448369123.htm" target="_blank">AI Safety Governance Framework v2.0 [updated version; supersedes v1.0]</a><span class="am">❗</span></span><span class="en2">人工智能安全治理框架2.0</span><span class="dt">Sep 2025</span></div>
+  <div class="ri t7s"><span class="tg">TC260 · GB/T</span><span class="cn"><a href="https://std.samr.gov.cn/gb/search/gbDetailed?id=33D40F1160BE5D92E06397BE0A0A5B93" target="_blank">Security Specifications for GenAI Pre-training and Fine-tuning Data</a></span><span class="en2">GB/T 45652—2025 网络安全技术 生成式人工智能预训练和优化训练数据安全规范</span><span class="dt">eff. Nov 1, 2025</span></div>
+  <div class="ri t7s"><span class="tg">TC260 · GB/T</span><span class="cn"><a href="https://std.samr.gov.cn/gb/search/gbDetailed?id=33D40F1160BF5D92E06397BE0A0A5B93" target="_blank">Basic Security Requirements for GenAI Services [GB/T national standard; ❗ upgrade from TC260-003 technical guidance]</a><span class="am">!</span></span><span class="en2">GB/T 45654—2025 网络安全技术 生成式人工智能服务安全基本要求</span><span class="dt">eff. Nov 1, 2025</span></div>
+  <div class="ri t7s"><span class="tg">TC260 · GB/T</span><span class="cn"><a href="https://std.samr.gov.cn/gb/search/gbDetailed?id=33D40F1160F95D92E06397BE0A0A5B93" target="_blank">Security Specifications for GenAI Data Annotation</a></span><span class="en2">GB/T 45674—2025 网络安全技术 生成式人工智能数据标注安全规范</span><span class="dt">eff. Nov 1, 2025</span></div>
+</td>
+<!-- 2026 -->
+<td class="rc">
+  <div class="ri t7s"><span class="tg">SAMR+SAC · GB</span><span class="cn"><a href="https://std.samr.gov.cn/gb/search/gbDetailed?id=208DEC46F6B547EEE06397BE0A0AA4A0" target="_blank">Intelligent and Connected Vehicle — Data Storage System for Automated Driving</a></span><span class="en2">GB 44497—2024 智能网联汽车 自动驾驶数据记录系统</span><span class="dt">eff. Jan 1, 2026</span></div>
+  <div class="ri t7s"><span class="tg">TC260 · GB/T</span><span class="cn"><a href="https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=32BCE5E761A1598E64B589FEC09501AB" target="_blank">Security Framework for AI Computing Platforms</a></span><span class="en2">GB/T 45958—2025 网络安全技术 人工智能计算平台安全框架</span><span class="dt">eff. Feb 1, 2026</span></div>
+</td>
+</tr>
+</tbody></table></div>
+
+<!-- LEGEND -->
+<div class="leg">
+  <div class="le"><div class="ls" style="background:#E24B4A"></div>Constitution</div>
+  <div class="le"><div class="ls" style="background:#D85A30"></div>NPC/NPCSC Laws</div>
+  <div class="le"><div class="ls" style="background:#BA7517"></div>National-Level Policy &amp; Int'l Initiatives</div>
+  <div class="le"><div class="ls" style="background:#639922"></div>State Council Regulations</div>
+  <div class="le"><div class="ls" style="background:#1D9E75"></div>Departmental Rules</div>
+  <div class="le"><div class="ls" style="background:#185FA5"></div>Local Legislation</div>
+  <div class="le"><div class="ls" style="background:#7F77DD"></div>Normative Documents</div>
+  <div class="le"><div class="ls" style="background:#888780"></div>GB/T · GB Standards</div>
+  <div class="le"><div class="lsd" style="border-color:#888780"></div>TC260 Reference Framework</div>
+  <div class="le" style="font-size:7.5px;color:var(--txt3);margin-top:4px;width:100%;line-height:1.7">
+    <b>Standards (classification follows National Standards Information Platform by SAMR · https://openstd.samr.gov.cn/bzgk/gb/):</b><br>
+    GB（强制性国家标准）= Mandatory National Standard &nbsp;·&nbsp; GB/T（推荐性国家标准）= Recommended National Standard<br>
+    GB/Z（指导性技术文件）= Guidance Technical Document &nbsp;·&nbsp; JR/T（金融行业标准）= Financial Industry Standard
+  </div>
+  <div class="le" style="font-size:7.5px;color:var(--txt3);margin-top:2px;width:100%;line-height:1.7">
+    <b>Methodology:</b> Most tier classifications are based on official government agency websites (State Council, CAC, SAMR etc.). Regulatory document type follows official numbering conventions: 令号 = departmental rule (T4); 通字 = normative circular (T6).
+  </div>
+  <div class="key-row">
+    <b>❗</b> = regulatory lifecycle transition: draft→finalized · version update (e.g., v1.0→v2.0) · regulatory replacement · policy→standard upgrade &nbsp;·&nbsp; <i>(征求意见稿)</i> = public consultation draft &nbsp;·&nbsp; <i>(disc.)</i> = under discussion &nbsp;·&nbsp; <i>(planned)</i> = announced only<br>
+    Tag: ≤3 bodies → all listed · &gt;3 → lead+N · order follows official doc header<br>
+    Document number in italics below tag · Dates = effective date where available; otherwise issuance/adoption/consultation date · 通字 format (国信办通字) = normative circular, not departmental rule; placed in T6
+  </div>
+</div>
+
+
+<!-- NOTES -->
+<div class="fn-notes">
+  <div style="font-size:7.5px;color:var(--txt3);line-height:1.75;margin-top:6px;padding-top:6px;border-top:0.5px solid var(--bdr2)">
+  <b>Notes:</b>&nbsp;
+  <b>T3 注:</b> 国务院意见文件（国发〔〕、国办发〔〕）严格意义上属于规范性文件，但鉴于国务院的政治权威，本矩阵将其与正式行政法规置于同一层级。 | State Council 意见/实施意见 documents are technically normative documents but placed in T3 given the State Council's supreme executive authority. |
+  <b>T4 通字注:</b> 人工智能生成合成内容标识办法 (国信办通字[2025]2号) and 可能影响未成年人身心健康的网络信息分类办法 (国信办通字[2025]5号) use 通字 (circular) format, not ministerial 令, therefore classified as T6 normative documents. |
+  <b>GB 45438-2025 &amp; 标识办法 关系:</b> 标识办法 (T6, eff. Sep 1, 2025) is the regulatory measure mandating AI content labeling; GB 45438-2025 (T7, eff. Sep 1, 2025) is the mandatory national standard specifying the technical labeling method. The standard implements the rule. |
+  <b>智能网联汽车 2018规范:</b> 工信部联装[2018]66号 superseded by 工信部联通装[2021]97号 (eff. Sep 1, 2021). |
+  <b>T5 杭州条例:</b> Passed Dec 29, 2025; must be approved by Zhejiang Provincial NPC before taking effect. First local legislation focused on embodied intelligence robots. |
+  <b>GenAI Safety Requirements lifecycle chain:</b> 2023 public consultation draft (TC260) → TC260-003 technical guidance (Feb 2024; ❗) → GB/T 45654—2025 national standard (eff. Nov 1, 2025; ❗). Each stage represents an upgrade in formalization and legal authority. |
+  <b>GB/T 45652, 45654, 45674 links:</b> Links updated to SAMR National Standards Information Platform (std.samr.gov.cn). |
+  </div>
+</div>
+<!-- FOOTNOTES -->
+<!-- FOOTNOTES -->
+<div class="fn">
+  <b>Abbreviations:</b> CAC = Cyberspace Administration of China · SC = State Council · SCO = SC General Office · MIIT = Ministry of Industry &amp; IT · MPS = Ministry of Public Security · MOT = Ministry of Transport · SAMR = State Admin. for Market Regulation · MOFCOM = Ministry of Commerce · NDRC = Nat'l Development &amp; Reform Commission · NDA = National Data Administration · NHC = Nat'l Health Commission · NRTA = Nat'l Radio &amp; Television Administration · MOST = Ministry of Science &amp; Technology · SAC = Standardization Admin. of China · TC260 = National Cybersecurity Standards Technical Committee · PBC = People's Bank of China · CMA = China Meteorological Administration · CNIPA = China National Intellectual Property Administration · NEA = National Energy Administration · CIETAC = China Int'l Economic &amp; Trade Arbitration Commission · CPO = CPC Central Office · NAIGEC = National New-Gen AI Governance Expert Committee
+
+</div>
+<div class="appx">
+<h2>Appendix: Institution Abbreviations 机构缩写对照表</h2>
+<table>
+<thead><tr><th>Abbrev.</th><th>English Full Name</th><th>中文全称</th></tr></thead>
+<tbody>
+<tr><td class="ab">NPC</td><td>National People's Congress</td><td>全国人民代表大会</td></tr>
+<tr><td class="ab">NPCSC</td><td>NPC Standing Committee</td><td>全国人民代表大会常务委员会</td></tr>
+<tr><td class="ab">CPC CC</td><td>CPC Central Committee</td><td>中共中央</td></tr>
+<tr><td class="ab">CPO</td><td>General Office of the CPC Central Committee</td><td>中共中央办公厅</td></tr>
+<tr><td class="ab">SC</td><td>State Council</td><td>国务院</td></tr>
+<tr><td class="ab">SCO</td><td>General Office of the State Council</td><td>国务院办公厅</td></tr>
+<tr><td class="ab">CAC</td><td>Cyberspace Administration of China</td><td>国家互联网信息办公室（网信办）</td></tr>
+<tr><td class="ab">MIIT</td><td>Ministry of Industry and Information Technology</td><td>工业和信息化部</td></tr>
+<tr><td class="ab">MPS</td><td>Ministry of Public Security</td><td>公安部</td></tr>
+<tr><td class="ab">MOT</td><td>Ministry of Transport</td><td>交通运输部</td></tr>
+<tr><td class="ab">MOE</td><td>Ministry of Education</td><td>教育部</td></tr>
+<tr><td class="ab">MOA</td><td>Ministry of Agriculture and Rural Affairs</td><td>农业农村部</td></tr>
+<tr><td class="ab">MOST</td><td>Ministry of Science and Technology</td><td>科学技术部</td></tr>
+<tr><td class="ab">MOFCOM</td><td>Ministry of Commerce</td><td>商务部</td></tr>
+<tr><td class="ab">NDRC</td><td>National Development and Reform Commission</td><td>国家发展和改革委员会</td></tr>
+<tr><td class="ab">NHC</td><td>National Health Commission</td><td>国家卫生健康委员会</td></tr>
+<tr><td class="ab">NRTA</td><td>National Radio and Television Administration</td><td>国家广播电视总局</td></tr>
+<tr><td class="ab">MCT</td><td>Ministry of Culture and Tourism</td><td>文化和旅游部</td></tr>
+<tr><td class="ab">SAMR</td><td>State Administration for Market Regulation</td><td>国家市场监督管理总局</td></tr>
+<tr><td class="ab">SAC</td><td>Standardization Administration of China</td><td>国家标准化管理委员会（国标委）</td></tr>
+<tr><td class="ab">TC260</td><td>National Technical Committee 260 on Cybersecurity Standardization</td><td>全国网络安全标准化技术委员会（网安标委）</td></tr>
+<tr><td class="ab">PBC</td><td>People's Bank of China</td><td>中国人民银行</td></tr>
+<tr><td class="ab">CMA</td><td>China Meteorological Administration</td><td>中国气象局</td></tr>
+<tr><td class="ab">CNIPA</td><td>China National Intellectual Property Administration</td><td>国家知识产权局</td></tr>
+<tr><td class="ab">NDA</td><td>National Data Administration</td><td>国家数据局</td></tr>
+<tr><td class="ab">CAS</td><td>Chinese Academy of Sciences</td><td>中国科学院</td></tr>
+<tr><td class="ab">CASS</td><td>Chinese Academy of Social Sciences</td><td>中国社会科学院</td></tr>
+<tr><td class="ab">CAE</td><td>Chinese Academy of Engineering</td><td>中国工程院</td></tr>
+<tr><td class="ab">CAST</td><td>China Association for Science and Technology</td><td>中国科学技术协会</td></tr>
+<tr><td class="ab">CJSTC</td><td>Central Military Commission Science and Technology Commission</td><td>中央军委科学技术委员会</td></tr>
+<tr><td class="ab">NAIGEC</td><td>National New Generation AI Governance Expert Committee (under MOST)</td><td>国家新一代人工智能治理专业委员会</td></tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
