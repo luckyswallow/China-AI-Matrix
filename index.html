@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<meta name="author" content="China AI Field Notes">
+<meta name="copyright" content="© 2026 China AI Field Notes. All rights reserved.">
+<meta name="description" content="China AI Regulatory Matrix — interactive map of China's AI governance framework. 100+ documents, 8 legal tiers, 2017–2026. By China AI Field Notes on Substack.">
+<meta property="og:title" content="China AI Regulatory Matrix">
+<meta property="og:description" content="Interactive map of China's AI governance framework. 100+ official documents, 8 legal tiers, all linked to primary sources.">
+<meta property="og:url" content="https://luckyswallow.github.io/China-AI-Matrix/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>China AI Regulatory Matrix v8</title>
@@ -107,6 +113,13 @@ td.rl{background:var(--bg)}
 .appx td{font-size:8.5px;padding:3px 4px 3px 0;border-bottom:0.5px solid var(--bdr2);vertical-align:top;line-height:1.45}
 .appx tr:last-child td{border-bottom:none}
 .ab{font-weight:700;color:var(--txt2);font-size:9px;white-space:nowrap}
+
+/* Copyright & Watermark */
+.copyright{margin-top:32px;padding:14px 18px;border-top:1px solid var(--bdr2);font-size:8px;color:var(--txt3);line-height:1.8;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.copyright a{color:var(--txt3);text-decoration:underline}
+.copyright b{color:var(--txt2)}
+.wm{position:fixed;bottom:12px;right:14px;font-size:7.5px;color:var(--txt3);opacity:0.5;pointer-events:none;z-index:9999;letter-spacing:0.02em;user-select:none}
+@media print{.wm{display:block!important;opacity:0.35}}
 </style>
 </head><body>
 <h1>China AI Regulatory Matrix <span style="font-size:9px;font-weight:400;color:var(--txt3)">— English-primary edition for Western readers</span></h1>
@@ -515,5 +528,46 @@ td.rl{background:var(--bg)}
 </tbody>
 </table>
 </div>
+
+<!-- Fixed watermark -->
+<div class="wm">© China AI Field Notes · chinaaifield.substack.com</div>
+
+<!-- Copyright footer -->
+<div class="copyright">
+  <div>
+    <b>© 2026 China AI Field Notes</b> &nbsp;·&nbsp;
+    <a href="https://chinaaifield.substack.com" target="_blank">chinaaifield.substack.com</a><br>
+    This matrix is an original work of research and curation.
+    You may share or cite it with full attribution to <i>China AI Field Notes</i>.
+    Reproduction, redistribution, or commercial use without written permission is prohibited.<br>
+    All links point to official PRC government sources. Last updated: April 2026 · v15
+  </div>
+  <div style="text-align:right;white-space:nowrap;flex-shrink:0">
+    📧 Contact via Substack<br>
+    🔗 <a href="https://luckyswallow.github.io/China-AI-Matrix/" target="_blank">luckyswallow.github.io/China-AI-Matrix</a>
+  </div>
+</div>
+
+<script>
+// Disable right-click on the matrix table area
+document.addEventListener('contextmenu', function(e){
+  if(e.target.closest('table,.ri,.fn,.appx')){
+    e.preventDefault(); return false;
+  }
+});
+// Append attribution when text is copied
+document.addEventListener('copy', function(e){
+  const sel = window.getSelection();
+  if(!sel || sel.toString().length < 20) return;
+  const txt = sel.toString();
+  const attr = '\n\n— Source: China AI Field Notes (chinaaifield.substack.com). All rights reserved. Do not reproduce without permission.';
+  const html = sel.toString() + '<br><br><small>— Source: <a href="https://chinaaifield.substack.com">China AI Field Notes</a>. All rights reserved.</small>';
+  try{
+    e.clipboardData.setData('text/plain', txt + attr);
+    e.clipboardData.setData('text/html', html);
+    e.preventDefault();
+  }catch(err){}
+});
+</script>
 </body>
 </html>
