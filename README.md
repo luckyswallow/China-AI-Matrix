@@ -3,7 +3,7 @@
 **A structured map of China's AI governance landscape — 100+ documents, 8 legal tiers, all linked to primary government sources.**
  
 🔗 **Live matrix:** [luckyswallow.github.io/China-AI-Matrix](https://luckyswallow.github.io/China-AI-Matrix/)  
-📖 **Companion article:** [China's AI Governance Structure: From Legislative Hierarchy to Governance in Practice](https://chinaaifield.substack.com) — *China AI Field Notes*
+📖 **Companion article:** https://luckyyan.substack.com/p/chinas-multilayered-ai-governance — *China AI Field Notes*
  
 ---
  
